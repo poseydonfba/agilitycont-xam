@@ -24,4 +24,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - Sqlite
 - PostgreSQL
 
-![alt text](https://raw.githubusercontent.com/poseydonfba/agilitycont-xam/master/img/tela-inicial.png)
+![alt text](https://raw.githubusercontent.com/poseydonfba/agilitycont-xam/img/tela-inicial.png)
