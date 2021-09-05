@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="AgilityContXam.Views.TransacaoPage"
+             xmlns:converter="clr-namespace:AgilityContXam.Converters;assembly=AgilityContXam"
+             xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack"
+             xmlns:controls="clr-namespace:AgilityContXam.Controls;assembly=AgilityContXam"     
+             xmlns:fontawesome="clr-namespace:FontAwesome"        
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" 
+                     Order="Primary" 
+                     Command="{Binding AbrirNovaTransacaoCommand}"
+                     Text="Novo" Priority="0">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    Size="19"
+                    Color="{StaticResource DarkTextColor}"
+                    Glyph="{x:Static fontawesome:IconFont.Plus}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converterPack:CurrencyConverter x:Key="CurrencyConverter" />
+            <converter:CurrencyColorConverter x:Key="CurrencyColorConverter" />
+            <converterPack:UpperTextConverter x:Key="UpperTextConverter" />
+            <converter:NoHasDataConverter x:Key="NoHasDataConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <controls:CustomListView ItemsSource="{Binding Transacoes}"
+                                     HasUnevenRows="true"
+                                     SeparatorColor="Transparent"
+                                     ItemTappedCommand="{Binding SelectedItemCommand}"
+                                     InfiniteScrollCommand="{Binding InfiniteScrollCommand}">
+
+                <controls:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Frame Margin="20,10,20,10" Padding="0" HasShadow="True" BorderColor="White">
+                                <StackLayout Orientation="Vertical" Padding="15,10,5,20">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding DataTransacao, StringFormat='{0:dd/MM/yyyy}'}" 
+                                           TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                                        <Label Text="{Binding DescFormaPagamento}" 
+                                               TextColor="Gray" 
+                                               Margin="0,0,5,0" FontSize="Small" VerticalTextAlignment="Center" HorizontalOptions="End" />
+                                        <Label Text="{Binding Valor, Converter={StaticResource CurrencyConverter}}" 
+                                               FontFamily="{StaticResource FontNunitoBold}"
+                                               TextColor="{Binding IdTipoLancamento, Converter={StaticResource CurrencyColorConverter}}" 
+                                               Margin="0,0,5,0" FontSize="Small" VerticalTextAlignment="Center" HorizontalOptions="End" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Margin="0,5,0,0">
+                                        <!--<Image Source="icon_list.png" Margin="5,0,10,0" />-->
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding DescTipoTransacao}" TextColor="#212121" FontSize="17" />
+                                            <Label Text="{Binding Descricao}" Margin="0,-5,0,0" TextColor="#777777" FontSize="12" />
+                                        </StackLayout>
+                                        <Image Source="icon_caret.png" HorizontalOptions="EndAndExpand" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+
+                            <!--<Frame Margin="0,5,0,5">
+                                <Grid>
+
+                                    <StackLayout Orientation="Horizontal" Padding="0" VerticalOptions="Start">
+
+                                        -->
+                            <!--<BoxView BackgroundColor="{Binding IdTipoLancamento, Converter={StaticResource CurrencyColorConverter}}"
+						                 HorizontalOptions="Start" 
+                                         VerticalOptions="Fill" WidthRequest="7"/>-->
+                            <!--
+
+                                        <StackLayout Margin="10" Orientation="Vertical" 
+                                             HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                                            <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand" >
+                                                <Label Text="{Binding DescTipoTransacao}" FontSize="Medium" TextColor="{DynamicResource DarkTextColor}" />
+                                                <Label Text="{Binding Descricao}" FontAttributes="Bold" TextColor="{DynamicResource DarkTextLightColor}" FontSize="Small" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                                <Label Text="{Binding DataTransacao, StringFormat='{0:dd/MM/yyyy}'}" HorizontalOptions="Start" FontAttributes="Bold" TextColor="{DynamicResource DarkTextLightColor}" FontSize="Small" />
+                                                <Label Text="{Binding DescFormaPagamento}" HorizontalOptions="End" FontAttributes="Bold" TextColor="{DynamicResource DarkTextLightColor}" FontSize="Small" />
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                    <Label TextColor="{Binding IdTipoLancamento, Converter={StaticResource CurrencyColorConverter}}" 
+                                       FontSize="Medium" 
+                                       HorizontalTextAlignment="End" 
+                                       VerticalTextAlignment="Center"
+                                       Margin="15" FontAttributes="Bold"
+                                       Text="{Binding Valor, Converter={StaticResource CurrencyConverter}}"  />
+
+                                </Grid>
+                            </Frame>-->
+
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:CustomListView.ItemTemplate>
+
+                <controls:CustomListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ActivityIndicator 
+                               IsRunning="{Binding IsBusy}" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
+                    </Grid>
+                </controls:CustomListView.Footer>
+
+            </controls:CustomListView>
+
+            <FlexLayout Direction="Column" Padding="40" 
+                   IsVisible="{Binding IsVisible}">
+                <Image Source="nenhumatransacao.png" FlexLayout.Grow="1"/>
+
+                <Label Text="Você não possui nenhuma transação"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center"
+                   FlexLayout.Grow="1" />
+
+                <Button Style="{StaticResource MainButton}"
+                    Text="NOVA TRANSAÇÃO"
+                    FontAttributes="Bold"
+                    Command="{Binding AbrirNovaTransacaoCommand}" />
+            </FlexLayout>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

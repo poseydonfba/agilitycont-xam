@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgilityContXam.Views.MainPage"
+             xmlns:converter="clr-namespace:AgilityContXam.Converters;assembly=AgilityContXam"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+		     xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             xmlns:views="clr-namespace:AgilityContXam.Views;assembly=AgilityContXam"
+             xmlns:controls="clr-namespace:AgilityContXam.Controls;assembly=AgilityContXam"
+             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             NavigationPage.HasNavigationBar="True"
+             Title="{Binding Title}">
+
+    <controls:BasePage.Resources>
+        <ResourceDictionary>
+            <converter:Base64ImageSourceConverter x:Key="ImageConverter" />
+
+            <Style x:Key="VLineStyle" TargetType="BoxView">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="WidthRequest" Value="2" />
+                <Setter Property="BackgroundColor" Value="#ebebeb" />
+            </Style>
+            <Style x:Key="HLineStyle" TargetType="BoxView">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Fill" />
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="BackgroundColor" Value="#ebebeb" />
+            </Style>
+
+            <Style x:Key="FrameButtomStyle" TargetType="controls:MaterialFrame">
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Elevation" Value="50" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="HeightRequest" Value="150" />
+                <Setter Property="Padding" Value="20,40,20,20" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="TextColor" Value="#FFFFFF" />
+                <Setter Property="ContentLayout" Value="Top,0" />
+                <Setter Property="FontFamily" Value="{StaticResource FontNunitoBold}" />
+            </Style>
+
+        </ResourceDictionary>
+    </controls:BasePage.Resources>
+
+    <controls:BasePage.Content>
+        <Grid>
+            <ScrollView Orientation="Vertical">
+                <StackLayout Spacing="0" VerticalOptions="Start">
+
+                    <Grid Padding="0,30,0,20" Margin="0" HeightRequest="160" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Row="0" 
+                          BackgroundColor="#f8f8f8">
+                        <!--BackgroundColor="#e0e5eb"-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Image="icon_comments.png" HeightRequest="50" Margin="0,-45,0,0" WidthRequest="50" HorizontalOptions="End" VerticalOptions="Center" BorderRadius="25" Grid.Column="0">
+                            <Button.IsVisible>
+                                <OnPlatform x:TypeArguments="x:Boolean">
+                                    <On Platform="iOS" Value="true" />
+                                    <On Platform="Android" Value="false" />
+                                </OnPlatform>
+                            </Button.IsVisible>
+                        </Button>
+                        <Button Image="icon_usersettings.png" HeightRequest="50" Margin="0,-45,0,0" WidthRequest="50" HorizontalOptions="Start" VerticalOptions="Center" BorderRadius="25" Grid.Column="2">
+                            <Button.IsVisible>
+                                <OnPlatform x:TypeArguments="x:Boolean">
+                                    <On Platform="iOS" Value="true" />
+                                    <On Platform="Android" Value="false" />
+                                </OnPlatform>
+                            </Button.IsVisible>
+                        </Button>
+                        <!--<ffimageloading:CachedImage Grid.ColumnSpan="3" VerticalOptions="Start" DownsampleToViewSize="true"
+                                                    Aspect="Fill" HeightRequest="180" Source="background.jpg">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:BlurredTransformation />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>-->                        
+                        <StackLayout Grid.Column="1">
+                            <ffimageloading:CachedImage VerticalOptions="Start" DownsampleToViewSize="true" 
+                                                        Aspect="AspectFit" HeightRequest="100" WidthRequest="100" 
+                                                        Source="{Binding Account.Foto, Converter={StaticResource ImageConverter}}">
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation BorderHexColor="#FFFFFF">
+                                        <fftransformations:CircleTransformation.BorderSize>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="iOS" Value="2" />
+                                                <On Platform="Android" Value="2" />
+                                            </OnPlatform>
+                                        </fftransformations:CircleTransformation.BorderSize>
+                                    </fftransformations:CircleTransformation>
+                                </ffimageloading:CachedImage.Transformations>
+                                <ffimageloading:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SlideOpenCommand}" NumberOfTapsRequired="1"/>
+                                </ffimageloading:CachedImage.GestureRecognizers>
+                            </ffimageloading:CachedImage>
+                            <Label Text="{Binding Account.Nome}" Margin="0,5,0,0" TextColor="Black" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding Account.Email}" TextColor="Gray" FontSize="Small" HorizontalTextAlignment="Center">
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean">
+                                        <On Platform="iOS" Value="false" />
+                                        <On Platform="Android" Value="true" />
+                                    </OnPlatform>
+                                </Label.IsVisible>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+                    <BoxView Style="{StaticResource HLineStyle}" BackgroundColor="#fab672" HeightRequest="0.5" />
+                    <carousel:CarouselViewControl HeightRequest="150" Orientation="Horizontal" InterPageSpacing="10" BackgroundColor="#ffffff"
+                                                Position="{Binding CarouselPosition}" ItemsSource="{Binding ExtratoLancamentos}" ShowIndicators="true" 
+                                                CurrentPageIndicatorTintColor="#000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <carousel:CarouselViewControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Vertical" Padding="15,10,15,5">
+                                    <Label Text="{Binding DescMes}" TextColor="#8f8f9e" FontSize="16" FontAttributes="Bold" FontFamily="{StaticResource FontNunitoBold}" Margin="20,15,20,0" />
+                                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Stretch" AlignContent="Stretch" Margin="0,-10,0,0">
+                                        <StackLayout Orientation="Vertical" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start" Margin="10">
+                                            <Label Text="{Binding TotalReceita}" TextColor="#5c93ca" HorizontalTextAlignment="Center" FontSize="35" />
+                                            <Label Text="Receita" Margin="0,-5,0,0" TextColor="#777777" HorizontalTextAlignment="Center" FontSize="Small" />
+                                        </StackLayout>
+                                        <BoxView WidthRequest="1" HeightRequest="60" BackgroundColor="#eeeeee" />
+                                        <StackLayout Orientation="Vertical" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start" Margin="10">
+                                            <Label Text="{Binding TotalDespesa}" TextColor="#fab672" HorizontalTextAlignment="Center" FontSize="35" />
+                                            <Label Text="Despesa" Margin="0,-5,0,0" TextColor="#777777" HorizontalTextAlignment="Center" FontSize="Small" />
+                                        </StackLayout>
+                                    </FlexLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </carousel:CarouselViewControl.ItemTemplate>
+                    </carousel:CarouselViewControl>
+                    <BoxView HeightRequest="1" Margin="15,0,5,0" BackgroundColor="#eeeeee" />
+
+                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" Padding="8,8,8,80">
+
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <controls:MaterialFrame VerticalOptions="Start" Style="{StaticResource FrameButtomStyle}">
+                                <Button Text="Transação" Style="{StaticResource ButtonStyle}" BackgroundColor="#16193c"
+                                        Command="{Binding OpenTransactionCommand}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.Donate}"
+                                            Size="44"
+                                            Color="#FFFFFF" />
+                                    </Button.ImageSource>
+                                </Button>
+                            </controls:MaterialFrame>
+                        </Grid>
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <controls:MaterialFrame VerticalOptions="Start" Style="{StaticResource FrameButtomStyle}">
+                                <Button Text="Extrato" Style="{StaticResource ButtonStyle}" BackgroundColor="#35488d"
+                                        Command="{Binding OpenExtratoCommand}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.FileMedicalAlt}"
+                                            Size="44"
+                                            Color="#FFFFFF" />
+                                    </Button.ImageSource>
+                                </Button>
+                            </controls:MaterialFrame>
+                        </Grid>
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <controls:MaterialFrame VerticalOptions="Start" Style="{StaticResource FrameButtomStyle}">
+                                <Button Text="..." Style="{StaticResource ButtonStyle}" BackgroundColor="#4f7ac8">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.MoneyBill}"
+                                            Size="44"
+                                            Color="#FFFFFF" />
+                                    </Button.ImageSource>
+                                </Button>
+                            </controls:MaterialFrame>
+                        </Grid>
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <controls:MaterialFrame VerticalOptions="Start" Style="{StaticResource FrameButtomStyle}">
+                                <Button Text="Logout" Style="{StaticResource ButtonStyle}" BackgroundColor="#80b2f1"
+                                        Command="{Binding LogoutCommand}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.SignOutAlt}"
+                                            Size="44"
+                                            Color="#FFFFFF" />
+                                    </Button.ImageSource>
+                                </Button>
+                            </controls:MaterialFrame>
+                        </Grid>
+
+                        <!--<Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <controls:MaterialFrame VerticalOptions="Start" 
+                                                    HasShadow="True" 
+                                                    BorderColor="White" 
+                                                    Padding="0" 
+                                                    CornerRadius="10"
+                                                    Elevation="50">
+                                <Button Text="Transação" HeightRequest="180" Padding="20,40,20,20"
+                                        BackgroundColor="#16193c" BorderColor="White" 
+                                        TextColor="White" FontSize="Medium"
+                                        ContentLayout="Top,0"
+                                        Command="{Binding OpenTransactionCommand}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                                Glyph="{x:Static fontawesome:IconFont.Donate}"
+                                                Size="44"
+                                                Color="White" />
+                                    </Button.ImageSource>
+                                    <Button.Opacity>
+                                        <OnPlatform x:TypeArguments="x:Double" iOS="1" Android="1" />
+                                    </Button.Opacity>
+                                </Button>
+                            </controls:MaterialFrame>
+                        </Grid>
+
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <Frame VerticalOptions="Start" HasShadow="True" BorderColor="White" Padding="0">
+                                <Button Text="..." HeightRequest="180" Padding="20,40,20,20"
+                                        BackgroundColor="#35488d" BorderColor="White" 
+                                        TextColor="White" FontSize="Medium" 
+                                        ContentLayout="Top,0">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                                Glyph="{x:Static fontawesome:IconFont.CircleNotch}"
+                                                Size="44"
+                                                Color="White" />
+                                    </Button.ImageSource>
+                                    <Button.Opacity>
+                                        <OnPlatform x:TypeArguments="x:Double" iOS="1" Android="1" />
+                                    </Button.Opacity>
+                                </Button>
+                            </Frame>
+                        </Grid>
+
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <Frame VerticalOptions="Start" HasShadow="True" BorderColor="Gray" Padding="0">
+                                <Button Text="..." HeightRequest="180" Padding="20,40,20,20"
+                                        BackgroundColor="#4f7ac8" BorderColor="White" 
+                                        TextColor="White" FontSize="Medium"
+                                        ContentLayout="Top,0">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                                Glyph="{x:Static fontawesome:IconFont.CircleNotch}"
+                                                Size="44"
+                                                Color="White" />
+                                    </Button.ImageSource>
+                                    <Button.Opacity>
+                                        <OnPlatform x:TypeArguments="x:Double" iOS="1" Android="1" />
+                                    </Button.Opacity>
+                                </Button>
+                            </Frame>
+                        </Grid>
+
+                        <Grid Margin="0" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start">
+                            <Frame VerticalOptions="Start" HasShadow="True" BorderColor="White" Padding="0">
+                                <Button Text="Logout" HeightRequest="180" Padding="20,40,20,20"
+                                        BackgroundColor="#80b2f1" BorderColor="White" 
+                                        TextColor="White" FontSize="Medium"
+                                        ContentLayout="Top,0"
+                                        Command="{Binding LogoutCommand}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                                Glyph="{x:Static fontawesome:IconFont.SignOutAlt}"
+                                                Size="44"
+                                                Color="White" />
+                                    </Button.ImageSource>
+                                    <Button.Opacity>
+                                        <OnPlatform x:TypeArguments="x:Double" iOS="1" Android="1" />
+                                    </Button.Opacity>
+                                </Button>
+                            </Frame>
+                        </Grid>-->
+
+                    </FlexLayout>
+
+                </StackLayout>
+            </ScrollView>
+
+            <!-- MENU -->
+            <StackLayout IsVisible="{Binding IsSlide}" WidthRequest="{Binding DefaultWidth}" HeightRequest="{Binding DefaultHeight}" BackgroundColor="Black" Opacity="0.6" />
+            <views:MediaMenu DefaultHeight="{Binding DefaultHeight}" IsSlideOpen="{Binding IsSlide}">
+                <views:MediaMenu.ItemTemplate>
+
+                    <StackLayout BackgroundColor="White" Padding="15,15,15,150" Orientation="Horizontal">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ImageButton BackgroundColor="White" Padding="40" CornerRadius="65" Command="{Binding OpenLibraryCommand}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                                     Glyph="{x:Static fontawesome:IconFont.Images}"
+                                                     Size="44"
+                                                     Color="{StaticResource MainColor}" />
+                                </ImageButton.Source>
+                            </ImageButton>
+                            <Label Text="Galeria" HorizontalTextAlignment="Center" 
+                                   Grid.Row="1" FontAttributes="Bold" Margin="0,-35,0,0" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ImageButton BackgroundColor="White" Padding="40" CornerRadius="65" Command="{Binding OpenCameraCommand}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                                     Glyph="{x:Static fontawesome:IconFont.Camera}"
+                                                     Size="44"
+                                                     Color="{StaticResource MainColor}" />
+                                </ImageButton.Source>
+                            </ImageButton>
+                            <Label Text="Camera" HorizontalTextAlignment="Center"
+                                   Grid.Row="1" FontAttributes="Bold" Margin="0,-35,0,0" />
+                        </Grid>
+
+                    </StackLayout>
+
+                </views:MediaMenu.ItemTemplate>
+            </views:MediaMenu>
+            <!-- MENU -->
+            
+        </Grid>
+    </controls:BasePage.Content>
+
+</controls:BasePage>

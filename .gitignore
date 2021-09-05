@@ -1,0 +1,11 @@
+.vs/
+config/
+packages/
+Secrets.txt
+Lib/
+AgilityContXam/AgilityContXam/bin/
+AgilityContXam/AgilityContXam/obj/
+AgilityContXam/AgilityContXam.Android/bin/
+AgilityContXam/AgilityContXam.Android/obj/
+AgilityContXam/AgilityContXam.iOS/bin/
+AgilityContXam/AgilityContXam.iOS/obj/

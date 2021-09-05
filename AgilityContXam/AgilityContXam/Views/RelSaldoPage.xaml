@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="AgilityContXam.Views.RelSaldoPage"
+             xmlns:fontawesome="clr-namespace:FontAwesome" 
+             xmlns:converter="clr-namespace:AgilityContXam.Converters;assembly=AgilityContXam"
+             xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack"
+             xmlns:controls="clr-namespace:AgilityContXam.Controls;assembly=AgilityContXam"               
+             xmlns:pdf="clr-namespace:PdfSharp.Xamarin.Forms;assembly=PdfSharp.Xamarin.Forms"
+             xmlns:views="clr-namespace:AgilityContXam.Views;assembly=AgilityContXam"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding Title}">
+
+    <controls:BasePage.Resources>
+        <ResourceDictionary>
+            <converterPack:CurrencyConverter x:Key="CurrencyConverter" />
+            <converter:CurrencyColorConverter x:Key="CurrencyColorConverter" />
+            <converterPack:UpperTextConverter x:Key="UpperTextConverter" />
+            <converter:NoHasDataConverter x:Key="NoHasDataConverter" />
+            <converterPack:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+        </ResourceDictionary>
+    </controls:BasePage.Resources>
+
+    <controls:BasePage.ToolbarItems>
+        <ToolbarItem Text="Pesquisar" Command="{Binding OpenMenuFiltroCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource FontAwesomeSolid}"
+                                 Glyph="{x:Static fontawesome:IconFont.Search}"
+                                 Size="19" 
+                                 Color="{StaticResource DarkTextColor}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Text="PDF" Clicked="GeneratePDF" IsEnabled="{Binding IsVisible}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource FontAwesomeSolid}"
+                                 Glyph="{x:Static fontawesome:IconFont.FilePdf}"
+                                 Size="19" 
+                                 Color="{StaticResource DarkTextColor}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </controls:BasePage.ToolbarItems>
+
+    <controls:BasePage.Content>
+
+        <Grid>
+
+            <ScrollView>
+
+                <StackLayout x:Name="mainGrid">
+
+                </StackLayout>
+
+            </ScrollView>
+
+            <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" />
+
+            <StackLayout Padding="40" VerticalOptions="Center" HorizontalOptions="Center" 
+                   IsVisible="{Binding IsVisible}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                            Glyph="{x:Static fontawesome:IconFont.Search}"
+                            Size="30"
+                            Color="{StaticResource DarkTextColor}" />
+                    </Image.Source>
+                </Image>
+
+                <Label Text=""
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center"
+                   FlexLayout.Grow="1" />
+
+            </StackLayout>
+
+            <!-- MENU -->
+            <StackLayout IsVisible="{Binding IsSlide}" WidthRequest="{Binding DefaultWidth}" HeightRequest="{Binding DefaultHeight}" BackgroundColor="Black" Opacity="0.6" />
+            <views:MediaMenu DefaultHeight="{Binding DefaultHeight}" IsSlideOpen="{Binding IsSlide}">
+                <views:MediaMenu.ItemTemplate>
+
+                    <StackLayout BackgroundColor="White" Padding="30,30,30,45">
+
+                        <Label Text="Data inicial:"></Label>
+                        <DatePicker Format="dd/MM/yyyy" Date="{Binding DataInicio}"></DatePicker>
+                        
+                        <Label Text="Data final:"></Label>
+                        <DatePicker Format="dd/MM/yyyy" Date="{Binding DataFim}"></DatePicker>
+
+                        <Button Style="{StaticResource WhiteButton}"
+                            Text="Pesquisar"
+                            FontAttributes="Bold"
+                            Command="{Binding PesquisarCommand}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+
+                </views:MediaMenu.ItemTemplate>
+            </views:MediaMenu>
+            <!-- MENU -->
+
+        </Grid>
+
+    </controls:BasePage.Content>
+
+</controls:BasePage>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+             x:Class="AgilityContXam.App">
+	<Application.Resources>
+
+        <!--2196F3-->
+        <!--<Color x:Key="primary">#673AB7</Color>
+        <Color x:Key="primaryDark">#512DA8</Color>-->
+
+        <!--<Color x:Key="MainColor">#f8cc45</Color>-->
+
+        <!--<Color x:Key="BackgroundColor">#e0e5eb</Color>-->
+        <Color x:Key="BackgroundColor">#f8f8f8</Color>
+        <Color x:Key="MainColorZ">#45414e</Color>
+
+        <Color x:Key="MainColor">#5389c0</Color>
+        <Color x:Key="DarkColor">#303F9F</Color>
+        <Color x:Key="DarkTextColor">#4e5262</Color>
+        <Color x:Key="DarkTextLightColor">#a9abb2</Color>
+        <Color x:Key="markerColor">#50D2C2</Color>
+
+        <Color x:Key="BlueColor">#5c93ca</Color>
+        <Color x:Key="RedColor">#fe2323</Color>
+        <Color x:Key="GreenColor">#95cc1c</Color>
+        <Color x:Key="OrangeColor">#fab672</Color>
+
+        <Color x:Key="LightColor">LightGray</Color>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeBrands">
+            <On Platform="Android" Value="FontAwesome5Brands.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
+            <On Platform="UWP" Value="/Assets/FontAwesome5Brands.otf#Font Awesome 5 Brands" />
+        </OnPlatform>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+            <On Platform="Android" Value="FontAwesome5FreeSolid.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+            <On Platform="UWP" Value="/Assets/FontAwesome5Solid.otf#Font Awesome 5 Free" />
+        </OnPlatform>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+            <On Platform="Android" Value="FontAwesome5FreeRegular.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5Free-Regular" />
+            <On Platform="UWP" Value="/Assets/FontAwesome5Regular.otf#Font Awesome 5 Free" />
+        </OnPlatform>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontNunitoLight">
+            <On Platform="iOS" Value="Nunito-Light" />
+            <On Platform="Android" Value="Nunito-Light.ttf#Nunito-Light" />
+        </OnPlatform>
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontNunitoBold">
+            <On Platform="iOS" Value="Nunito-Bold" />
+            <On Platform="Android" Value="Nunito-Bold.ttf#Nunito-Bold" />
+        </OnPlatform>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="ContentLayout" Value="Left, 10" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+        </Style>
+
+        <Style x:Key="WhiteButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="{StaticResource DarkTextColor}" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="BorderColor" Value="{StaticResource LightColor}" />
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+            <Setter Property="BorderWidth" Value="2" />
+        </Style>
+
+        <Style x:Key="WhiteButtonSmall" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HeightRequest" Value="36" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="WidthRequest" Value="80" />
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+        </Style>
+
+        <Style x:Key="RoundedLightButton" TargetType="ImageButton">
+            <Setter Property="BorderColor" Value="#d5d5d5" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="WidthRequest" Value="60" />
+            <Setter Property="Padding" Value="15" />
+            <Setter Property="Margin" Value="20,0" />
+            <Setter Property="BackgroundColor" Value="White" />
+        </Style>
+
+        <Style x:Key="CleanButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{StaticResource DarkColor}" />
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+            <Setter Property="CornerRadius" Value="30" />
+        </Style>
+
+        <Style x:Key="NavigationPageStyle" TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="BlueViolet" />
+            <Setter Property="BarTextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="#f8f8f8" />
+        </Style>
+
+        <Style TargetType="Label" >
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+            <Setter Property="TextColor" Value="{StaticResource DarkTextColor}" />
+            <!--<Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="White" />-->
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+            <!--<Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="PlaceholderColor" Value="White"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>-->
+        </Style>
+
+        <Style TargetType="Picker">
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource FontNunitoLight}" />
+        </Style>
+
+    </Application.Resources>
+</prism:PrismApplication>

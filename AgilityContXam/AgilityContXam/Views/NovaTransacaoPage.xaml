@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="AgilityContXam.Views.NovaTransacaoPage"
+             xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack"
+             Visual="Material"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converterPack:CurrencyConverter x:Key="CurrencyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <ScrollView Orientation="Vertical">
+                <StackLayout Margin="20">
+
+                    <Label Text="Tipo de Lançamento"></Label>
+                    <Picker Title="Selecione uma Opção" 
+                            ItemsSource="{Binding TipoLancamentos}" 
+                            ItemDisplayBinding="{Binding Descricao}" 
+                            SelectedItem="{Binding SelectedTipoLancamento}" />
+
+                    <Label Text="Tipo"></Label>
+                    <Picker Title="Selecione uma Opção" 
+                            ItemsSource="{Binding Items}" 
+                            ItemDisplayBinding="{Binding Descricao}" 
+                            SelectedItem="{Binding SelectedItem}" />
+
+                    <Label Text="Descrição"></Label>
+                    <Entry Placeholder="Descrição" Text="{Binding Descricao, Mode=TwoWay}" />
+
+                    <Label Text="Data da Transação"></Label>
+                    <DatePicker Format="dd/MM/yyyy" Date="{Binding DataTransacao}" />
+
+                    <Label Text="Valor"></Label>
+                    <Entry Placeholder="Valor" 
+                           Keyboard="Numeric" 
+                           HorizontalTextAlignment="Start"
+                           Text="{Binding Valor, Converter={StaticResource CurrencyConverter}}" />
+
+                    <Label Text="Desconto"></Label>
+                    <Entry Placeholder="Desconto" 
+                           Keyboard="Numeric" 
+                           HorizontalTextAlignment="Start"
+                           Text="{Binding Desconto, Converter={StaticResource CurrencyConverter}}" />
+
+                    <Label Text="Forma de Pagamento"></Label>
+                    <Picker Title="Selecione uma Opção" 
+                            ItemsSource="{Binding FormaPagamentos}" 
+                            ItemDisplayBinding="{Binding Descricao}" 
+                            SelectedItem="{Binding SelectedFormaPagamento}" />
+
+                    <Button Style="{StaticResource MainButton}"
+                            Text="SALVAR TRANSAÇÃO"
+                            FontAttributes="Bold"
+                            Command="{Binding SalvarTransacaoCommand}"
+                            VerticalOptions="Center" />  
+
+                    <Button Style="{StaticResource WhiteButton}"
+                            Text="EXCLUIR TRANSAÇÃO"
+                            FontAttributes="Bold"
+                            IsVisible="{Binding ExcluirIsVisible}"
+                            Command="{Binding ExcluirTransacaoCommand}"
+                            VerticalOptions="Center" />
+
+                    <Button Style="{StaticResource WhiteButton}"
+                            Text="CANCELAR"
+                            FontAttributes="Bold"
+                            Command="{Binding CancelarTransacaoCommand}"
+                            VerticalOptions="Center" />  
+
+                </StackLayout>
+            </ScrollView>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

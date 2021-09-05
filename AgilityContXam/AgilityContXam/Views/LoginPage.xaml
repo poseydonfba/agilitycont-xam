@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="AgilityContXam.Views.LoginPage"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             xmlns:controls="clr-namespace:AgilityContXam.Controls"
+             Visual="Material">
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <ScrollView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <controls:MaterialFrame Grid.Row="0" Padding="0" Elevation="10" BorderColor="White">
+                        <Image Source="overlay8.jpg" Aspect="Fill" />
+                    </controls:MaterialFrame>
+
+                    <StackLayout Grid.Row="1" HorizontalOptions="Center" Margin="0,-130,0,0">
+                        <Frame BackgroundColor="White" Opacity="0.2"
+                             CornerRadius="200"  WidthRequest="230" HeightRequest="230" >
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" HorizontalOptions="Center" Margin="0,-100,0,0">
+                        <Image Source="aglitycont.png" HeightRequest="200" />
+                    </StackLayout>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="3*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" >
+                            <StackLayout Orientation="Horizontal" Padding="35, 15, 40, 0" Spacing="25">
+                                <Image HeightRequest="20" VerticalOptions="Start" >
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.User}"
+                                            Size="44"
+                                            Color="{StaticResource DarkTextColor}" />
+                                    </Image.Source>
+                                </Image>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="0">
+                                    <Label Text="Email" FontFamily="{DynamicResource FontNunitoBold}" TextColor="{StaticResource DarkTextColor}"></Label>
+                                    <controls:MaterialEntry Placeholder="Entre com seu email" TextColor="{StaticResource DarkTextColor}" FontFamily="{DynamicResource FontNunitoLight}"
+                                                        PlaceholderColor="{StaticResource DarkTextLightColor}" HorizontalOptions="FillAndExpand"
+                                                        Text="{Binding LoginBindingModel.Username}">
+                                    </controls:MaterialEntry>
+                                </StackLayout>
+
+                            </StackLayout>
+                            <BoxView Color="#c0d6ed" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Start" />
+
+                            <StackLayout Orientation="Horizontal" Padding="35, 15, 40, 0"  Spacing="25">
+                                <Image HeightRequest="20" VerticalOptions="Start">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource FontAwesomeSolid}"
+                                            Glyph="{x:Static fontawesome:IconFont.UnlockAlt}"
+                                            Size="44"
+                                            Color="{StaticResource DarkTextColor}" />
+                                    </Image.Source>
+                                </Image>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="0">
+                                    <Label Text="Senha" FontFamily="{DynamicResource FontNunitoBold}" TextColor="{StaticResource DarkTextColor}"></Label>
+                                    <controls:MaterialEntry IsPassword="true" Placeholder="Entre com sua senha" TextColor="{StaticResource DarkTextColor}" FontFamily="{DynamicResource FontNunitoLight}"
+                                                        PlaceholderColor="{StaticResource DarkTextLightColor}" HorizontalOptions="FillAndExpand"
+                                                        Text="{Binding LoginBindingModel.Password}">
+                                    </controls:MaterialEntry>
+                                </StackLayout>
+                            </StackLayout>
+                            <BoxView Color="#c0d6ed" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+
+                            <!--<Label FontSize="Small" Text="Forgot Password" Margin="10" TextColor="Silver" HorizontalOptions="EndAndExpand" ></Label>-->
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Vertical" Grid.Row="1" Grid.Column="0" Padding="30">
+                            <controls:MaterialButton Text="LOGIN" Elevation="50" 
+                                                 Command="{Binding LoginCommand}"
+                                                 Style="{StaticResource MainButton}"/>
+                            <!--<StackLayout Margin="0,10,0,0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                <Label FontSize="Small" TextColor="Silver" Text="Don't have an account?"/>
+                                <Label FontSize="Small" TextColor="White" Text="Sign Up"/>
+                            </StackLayout>-->
+                        </StackLayout>
+
+                    </Grid>
+
+                </Grid>
+            </ScrollView>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
+
+        </Grid>
+        
+    </ContentPage.Content>
+
+</ContentPage>
